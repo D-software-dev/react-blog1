@@ -9,7 +9,6 @@ export default function Post({ post }) {
   const dateString = new Date(post.createdAt).toDateString();
   return (
     <>
-      {loading ? <div className="post loading">Loading...</div> : null}
       <div className="post">
         {post.photo && <img className="postImg" src={post.photo} alt="Post" />}
 

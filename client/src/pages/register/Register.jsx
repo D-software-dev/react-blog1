@@ -7,15 +7,31 @@ export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/auth/register", {
-      username,
-      email,
-      password,
-    });
-    console.log(res);
+    setLoading(true);
+    setError(false);
+    try {
+      const res = await axios.post("/api/auth/register", {
+        username,
+        email,
+        password,
+      });
+      res.data && window.location.replace("/login");
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      setError(true);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+      setUsername("");
+      setEmail("");
+      setPassword("");
+    }
   };
 
   return (
@@ -53,7 +69,7 @@ export default function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className="registerButton" type="submit">
-          Register
+          {loading ? "Loading..." : "Register"}
         </button>
       </form>
       <button className="registerLoginButton">
@@ -61,6 +77,18 @@ export default function Register() {
           Login
         </Link>
       </button>
+      {error && (
+        <span
+          style={{
+            color: "hsl(0, 100%, 63.53%)",
+            marginTop: "10px",
+            backgroundColor: "hsla(0, 100%, 90.97%, 0.73)",
+            padding: "1em",
+          }}
+        >
+          Something went wrong!
+        </span>
+      )}
     </div>
   );
 }
