@@ -1,10 +1,7 @@
-import { useContext } from "react";
 import Post from "../post/Post";
 import "./posts.css";
-import { AppContext } from "../../AppContext";
 
-export default function Posts({ posts }) {
-  const loading = useContext(AppContext);
+export default function Posts({ posts, loading }) {
   console.log(loading, "from posts component");
   return (
     <>

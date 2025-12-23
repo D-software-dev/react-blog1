@@ -1,11 +1,7 @@
 import { Link } from "react-router-dom";
 import "./post.css";
-import { useContext } from "react";
-import { AppContext } from "../../AppContext";
 
 export default function Post({ post }) {
-  const loading = useContext(AppContext);
-  console.log(loading, "from post component");
   const dateString = new Date(post.createdAt).toDateString();
   return (
     <>

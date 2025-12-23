@@ -5,7 +5,6 @@ import Posts from "../../components/posts/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./home.css";
 import { useSearchParams } from "react-router-dom";
-import { AppContext } from "../../AppContext";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -46,12 +45,12 @@ export default function Home() {
   // console.log(posts, "outside the useEffect");
 
   return (
-    <AppContext.Provider value={loading}>
+    <>
       <Header />
       <div className="home">
-        <Posts posts={posts} />
+        <Posts posts={posts} loading={loading} />
         <Sidebar />
       </div>
-    </AppContext.Provider>
+    </>
   );
 }
