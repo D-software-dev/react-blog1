@@ -1,13 +1,16 @@
 import "./singlePost.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Context } from "../../context/Context";
 
 export default function SinglePost() {
   const { postId } = useParams();
   const [post, setPost] = useState({});
   console.log(postId);
+  const { user } = useContext(Context);
   // const { setUser } = useContext(AppContext);
+  const PATH = "http://localhost:5000/images/";
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -26,14 +29,20 @@ export default function SinglePost() {
     <div className="singlePost">
       <div className="singlePostWrapper">
         {post.photo && (
-          <img className="singlePostImg" src={post.photo} alt="Single Post" />
+          <img
+            className="singlePostImg"
+            src={PATH + post.photo}
+            alt="Single Post"
+          />
         )}
         <h1 className="singlePostTitle">
           {post.title}
-          <div className="singlePostEdit">
-            <i className="singlePostIcon fa-regular fa-pen-to-square"></i>
-            <i className="singlePostIcon fa-regular fa-trash-can"></i>
-          </div>
+          {post.username === user?.username && (
+            <div className="singlePostEdit">
+              <i className="singlePostIcon fa-regular fa-pen-to-square"></i>
+              <i className="singlePostIcon fa-regular fa-trash-can"></i>
+            </div>
+          )}
         </h1>
         <div className="singlePostInfo">
           <span className="singlePostAuthor">

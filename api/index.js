@@ -8,9 +8,11 @@ const catsRoute = require("./routes/categories");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const multer = require("multer");
+const path = require("path");
 
 dotenv.config();
 app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "/images")));
 app.use(cors());
 
 mongoose
@@ -23,7 +25,9 @@ const storage = multer.diskStorage({
     cb(null, "images");
   },
   filename: (req, file, cb) => {
-    cb(null, "guy-studying2.jpg");
+    // const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const uniqueName = new Date().getHours() + "-" + file.originalname;
+    cb(null, uniqueName);
   },
 });
 
