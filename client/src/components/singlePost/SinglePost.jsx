@@ -12,6 +12,18 @@ export default function SinglePost() {
   // const { setUser } = useContext(AppContext);
   const PATH = "http://localhost:5000/images/";
 
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/api/posts/${postId}`, {
+        data: { username: user.username },
+      });
+      // Optionally, you can redirect the user or update the UI after deletion
+      window.location.replace("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -40,7 +52,10 @@ export default function SinglePost() {
           {post.username === user?.username && (
             <div className="singlePostEdit">
               <i className="singlePostIcon fa-regular fa-pen-to-square"></i>
-              <i className="singlePostIcon fa-regular fa-trash-can"></i>
+              <i
+                className="singlePostIcon fa-regular fa-trash-can"
+                onClick={handleDelete}
+              ></i>
             </div>
           )}
         </h1>
