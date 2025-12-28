@@ -10,6 +10,7 @@ export default function TopBar() {
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };
+  console.log("TopBar user: ", user);
 
   return (
     <div className="top">
@@ -51,7 +52,11 @@ export default function TopBar() {
       <div className="topRight">
         {user ? (
           <Link to="/settings">
-            <img className="topImg" src={PF + user.profilePic} alt="Profile" />
+            <img
+              className="topImg"
+              src={user.profilePic ? PF + user.profilePic : PF + "avatar.jpg"}
+              alt="Profile"
+            />
           </Link>
         ) : (
           <ul className="topList">

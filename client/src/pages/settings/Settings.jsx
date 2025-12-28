@@ -47,6 +47,9 @@ export default function Settings() {
       dispatch({ type: "UPDATE_FAILURE" });
     }
   };
+  console.log(file);
+  console.log("user is" + user);
+  console.log("profile pic is " + user?.profilePic);
 
   return (
     <div className="settings">
@@ -63,7 +66,19 @@ export default function Settings() {
               alt=""
             /> */}
             <img
-              src={file ? URL.createObjectURL(file) : PF + user.profilePic}
+              // src={file ? URL.createObjectURL(file) : PF + "avatar.jpg"}
+              // src={
+              //   !file
+              //     ? user
+              //       ? PF + user.profilePic
+              //       : PF + "avatar.jpg"
+              //     : URL.createObjectURL(file)
+              // }
+              src={
+                file
+                  ? URL.createObjectURL(file)
+                  : PF + (user.profilePic ? user.profilePic : "avatar.jpg")
+              }
               alt=""
             />
             <label htmlFor="fileInput">
