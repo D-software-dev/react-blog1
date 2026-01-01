@@ -9,8 +9,14 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path");
+const cloudinary = require("cloudinary").v2;
 
 dotenv.config();
+cloudinary.config({
+  cloud_name: "dgfxxaqcs",
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
 app.use(cors());
@@ -20,21 +26,38 @@ mongoose
   .then(console.log("Connected to MongoDB"))
   .catch((error) => console.log(error));
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "images");
-  },
-  filename: (req, file, cb) => {
-    // const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const uniqueName = new Date().getHours() + "-" + file.originalname;
-    cb(null, uniqueName);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "images");
+//   },
+//   filename: (req, file, cb) => {
+//     // const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     const uniqueName = new Date().getHours() + "-" + file.originalname;
+//     cb(null, uniqueName);
+//   },
+// });
+
+const storage = multer.memoryStorage();
 
 const upload = multer({ storage: storage });
 
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  res.status(200).json("File has been uploaded");
+app.post("/api/upload", upload.single("file"), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file uploaded" });
+  }
+
+  // console.log(req.file);
+
+  cloudinary.uploader
+    .upload_stream({ resource_type: "auto" }, (error, result) => {
+      if (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Error uploading to Cloudinary" });
+      }
+      res.json({ public_id: result.public_id, url: result.secure_url });
+    })
+    .end(req.file.buffer);
+  res.status(200).json("Testing file uploaded");
 });
 
 app.use("/api/auth", authRoute);
