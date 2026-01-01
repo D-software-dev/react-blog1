@@ -57,7 +57,7 @@ app.post("/api/upload", upload.single("file"), async (req, res) => {
       res.json({ public_id: result.public_id, url: result.secure_url });
     })
     .end(req.file.buffer);
-  res.status(200).json("Testing file uploaded");
+  // res.status(200).json("Testing file uploaded");
 });
 
 app.use("/api/auth", authRoute);
