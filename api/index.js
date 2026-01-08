@@ -30,7 +30,7 @@ app.use(
   })
 );
 
-// app.options("/*splat", cors());
+app.options("/*splat", cors());
 
 // app.use(cors());
 app.use(express.json());
