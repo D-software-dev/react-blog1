@@ -21,10 +21,10 @@ export default function Home() {
       try {
         let res;
         const url = newUser
-          ? `/api/posts?user=${newUser}`
+          ? `${process.env.REACT_APP_API_URL}/api/posts?user=${newUser}`
           : newCat
-          ? `/api/posts?cat=${newCat}`
-          : "/api/posts";
+          ? `${process.env.REACT_APP_API_URL}/api/posts?cat=${newCat}`
+          : `${process.env.REACT_APP_API_URL}/api/posts`;
         res = await axios.get(url, {
           headers: { "Cache-Control": "no-cache" }, // prevent 304
         });

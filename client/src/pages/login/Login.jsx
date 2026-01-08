@@ -13,10 +13,13 @@ export default function Login() {
     dispatch({ type: "LOGIN_START" });
     // Add login logic here
     try {
-      const res = await axios.post("/api/auth/login", {
-        username: usernameRef.current.value,
-        password: passwordRef.current.value,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/auth/login`,
+        {
+          username: usernameRef.current.value,
+          password: passwordRef.current.value,
+        }
+      );
       dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
     } catch (err) {
       dispatch({ type: "LOGIN_FAILURE" });

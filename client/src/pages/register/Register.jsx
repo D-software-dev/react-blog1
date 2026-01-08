@@ -15,11 +15,14 @@ export default function Register() {
     setLoading(true);
     setError(false);
     try {
-      const res = await axios.post("/api/auth/register", {
-        username,
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/auth/register`,
+        {
+          username,
+          email,
+          password,
+        }
+      );
       res.data && window.location.replace("/login");
       console.log(res);
     } catch (error) {

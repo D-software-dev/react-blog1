@@ -3,14 +3,11 @@ import "./post.css";
 
 export default function Post({ post }) {
   const dateString = new Date(post.createdAt).toDateString();
-  const FP = "http://localhost:5000/images/";
 
   return (
     <>
       <div className="post">
-        {post.photo && (
-          <img className="postImg" src={FP + post.photo} alt="Post" />
-        )}
+        {post.photo && <img className="postImg" src={post.photo} alt="Post" />}
         <div className="postInfo">
           <div className="postCats">
             {post.categories.map((cat, index) => {

@@ -22,17 +22,28 @@ export default function Write() {
       const filename = new Date().getHours() + "-" + file.name;
       data.append("name", filename);
       data.append("file", file);
-      newPost.photo = filename;
+      // newPost.photo = filename;
       try {
-        await axios.post("/api/upload", data);
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/upload`,
+          data
+        );
+        console.log(res);
+        newPost.photo = res.data.url;
+        console.log(newPost.photo + " is the photo url");
       } catch (err) {
         console.log(err);
       }
     }
 
     try {
-      const res = await axios.post("/api/posts", newPost);
-      window.location.replace("/post/" + res.data._id);
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/posts`,
+        newPost
+      );
+      console.log(res.data + " is the new post created");
+      console.log(newPost + " is the new post data sent");
+      // window.location.replace("/post/" + res.data._id);
     } catch (err) {
       console.log(err);
     }

@@ -9,16 +9,19 @@ export default function SinglePost() {
   const [post, setPost] = useState({});
   console.log(postId);
   const { user } = useContext(Context);
-  const PATH = "http://localhost:5000/images/";
+  // const PATH = "http://localhost:5000/images/";
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`/api/posts/${postId}`, {
-        data: { username: user.username },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/posts/${postId}`,
+        {
+          data: { username: user.username },
+        }
+      );
       // Optionally, you can redirect the user or update the UI after deletion
       window.location.replace("/");
     } catch (err) {
@@ -29,7 +32,9 @@ export default function SinglePost() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`/api/posts/${postId}`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/posts/${postId}`
+        );
         console.log(res.data);
         setPost(res.data);
         setTitle(res.data.title);
@@ -43,7 +48,7 @@ export default function SinglePost() {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`/api/posts/${postId}`, {
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/posts/${postId}`, {
         title,
         desc,
         username: user.username,
@@ -64,11 +69,7 @@ export default function SinglePost() {
     <div className="singlePost">
       <div className="singlePostWrapper">
         {post.photo && (
-          <img
-            className="singlePostImg"
-            src={PATH + post.photo}
-            alt="Single Post"
-          />
+          <img className="singlePostImg" src={post.photo} alt="Single Post" />
         )}{" "}
         {updateMode ? (
           <input

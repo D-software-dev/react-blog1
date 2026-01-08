@@ -28,20 +28,28 @@ export default function Settings() {
       const filename = new Date().getHours() + "-" + file.name;
       data.append("name", filename);
       data.append("file", file);
-      updatedUser.profilePic = filename;
+      // updatedUser.profilePic = filename;
       try {
-        await axios.post("/api/upload", data);
+        const res = await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/upload`,
+          data
+        );
+        updatedUser.profilePic = res.data.url;
+        console.log(res);
       } catch (err) {
         console.log(err);
       }
     }
 
     try {
-      const res = await axios.put("/api/users/" + user._id, updatedUser);
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_URL}/api/users/${user._id}`,
+        updatedUser
+      );
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
       // window.location.replace("/post/" + res.data._id);
-      // window.location.replace("/");
+      window.location.replace("/");
     } catch (err) {
       console.log(err);
       dispatch({ type: "UPDATE_FAILURE" });
@@ -77,7 +85,9 @@ export default function Settings() {
               src={
                 file
                   ? URL.createObjectURL(file)
-                  : PF + (user.profilePic ? user.profilePic : "avatar.jpg")
+                  : user.profilePic
+                  ? user.profilePic
+                  : PF + "avatar.jpg"
               }
               alt=""
             />

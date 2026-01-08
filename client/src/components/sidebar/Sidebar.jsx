@@ -8,7 +8,9 @@ export default function Sidebar() {
   useEffect(() => {
     const fetchCats = async () => {
       try {
-        const res = await axios.get("/api/categories");
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/categories`
+        );
         console.log(res.data);
         setCats(res.data);
       } catch (error) {
@@ -24,7 +26,10 @@ export default function Sidebar() {
         <span className="sidebarTitle">ABOUT ME</span> <br />
         <img
           // src="https://i.pinimg.com/236x/1e/3f/58/1e3f587572a7a7b20bbf1828595a1786--holiday-party-themes-holiday-gift-guide.jpg"
-          src={"http://localhost:5000/images/8-guy-studying3.jpg"}
+          // src={"http://localhost:5000/images/8-guy-studying3.jpg"}
+          src={
+            "https://res.cloudinary.com/dgfxxaqcs/image/upload/v1767882331/guy-studying3_oqxov1.jpg"
+          }
           alt="About Me"
         />
         <p>

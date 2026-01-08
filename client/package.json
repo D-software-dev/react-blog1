@@ -1,5 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
+  "homepage": "https://D-software-dev.github.io/react-blog-1/",
   "name": "react-blog",
   "version": "0.1.0",
   "private": true,
@@ -19,7 +20,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages build"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +42,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
 }
