@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "homepage": "https://D-software-dev.github.io/react-blog-1/",
+  "homepage": "https://D-software-dev.github.io/react-blog1/",
   "name": "react-blog",
   "version": "0.1.0",
   "private": true,
