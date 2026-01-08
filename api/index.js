@@ -25,11 +25,12 @@ app.use(
       "https://D-software-dev.github.io/react-blog1/",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    optionsSuccessStatus: 200,
     allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
   })
 );
 
-app.options("*", cors());
+// app.options("/*splat", cors());
 
 // app.use(cors());
 app.use(express.json());
