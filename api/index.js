@@ -20,10 +20,7 @@ cloudinary.config({
 // app.use(cors());
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://D-software-dev.github.io/react-blog1/",
-    ],
+    origin: ["http://localhost:3000", "https://d-software-dev.github.io"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     optionsSuccessStatus: 200,
     allowedHeaders: ["Content-Type", "Authorization", "Cache-Control"],
