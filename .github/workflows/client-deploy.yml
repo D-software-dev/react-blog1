@@ -28,10 +28,11 @@ jobs:
         run: npm ci
 
       - name: Build project
+        working-directory: client
         run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_toke: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: client/build
