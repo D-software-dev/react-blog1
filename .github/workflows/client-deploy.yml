@@ -21,9 +21,11 @@ jobs:
         with:
           node-version: 18
           cache: npm
+          cache-dependency-path: client/package-lock.json
 
       - name: Install dependencies
-        run: npm install
+        working-directory: client
+        run: npm ci
 
       - name: Build project
         run: npm run build
