@@ -29,7 +29,16 @@ jobs:
 
       - name: Build project
         working-directory: client
-        run: npm run build
+        run: |
+          rm -rf build
+          npm run build
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+
+      - name: Debug env
+        run: echo "REACT_APP_API_URL is $REACT_APP_API_URL"
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
