@@ -25,9 +25,7 @@ export default function Home() {
           : newCat
           ? `${process.env.REACT_APP_API_URL}/api/posts?cat=${newCat}`
           : `${process.env.REACT_APP_API_URL}/api/posts`;
-        res = await axios.get(url, {
-          headers: { "Cache-Control": "no-cache" }, // prevent 304
-        });
+        res = await axios.get(url);
         console.log(res.data);
         setPosts(res.data);
         // console.log(posts);
